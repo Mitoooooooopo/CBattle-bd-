@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+
+# some of my expirmental files
+
+ballsdex/pack/b/
+ballsdex/pack/c/
+ballsdex/pack/f/

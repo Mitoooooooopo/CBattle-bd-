@@ -1,0 +1,40 @@
+from dataclasses import dataclass, field
+
+@dataclass
+class BattleBall:
+    name: str
+    atk: int
+    hp: int
+    ballid: int 
+    emoji: str = ""
+    
+    def description(
+        self,
+        short: bool = False,
+        include_emoji: bool = False,
+        bot=None,
+        is_trade: bool = False,
+    ) -> str:
+        text = self.name
+    
+        if include_emoji: 
+            emoji1 = bot.get_emoji(self.emoji)
+            text = f"{emoji1} {text}"
+    
+        if not short:
+            text += f" (ATK: {self.atk}, HP: {self.hp})" 
+        
+        return text
+    
+
+@dataclass
+class BattlingUser:
+    user: discord.Member
+    proposal: list[BattleBall] = field(default_factory=list) 
+    locked: bool = False
+    cancelled: bool = False
+
+    def add_ball(self, Ball):
+        self.proposal.append(Ball)
+
+    
