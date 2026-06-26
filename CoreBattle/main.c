@@ -37,8 +37,6 @@ int PlayerAttackPhase(BattleBall *attacker, BattleBall *attacked, FILE *logger) 
 	int final_damage = dmgc(attacker);
 	int dmgdone = attacked->hp -= final_damage; 
 	fprintf(logger, "%s did %d damage to %s\n", attacker->name, final_damage, attacked->name); 
-
-	return final_damage;
 }
 void Fight(Player *user1, Player *user2, const char *Filename) {
        BattleBall *p1 = user1->balls; 
@@ -50,14 +48,14 @@ void Fight(Player *user1, Player *user2, const char *Filename) {
       for (int i = 0; i < MAX_SIZE; i++) {
        while(p1[i].hp > 0 && p2[i].hp > 0) {
             fprintf(logfile, "Turn: %d\n", turn);
-			int dodmg = PlayerAttackPhase(&p1[i], &p2[i], logfile);  
+			PlayerAttackPhase(&p1[i], &p2[i], logfile);  
 			if (p2[i].hp <= 0) {
                 turn++; 
                 user1->winball++;
 			    fprintf(logfile, "%s fainted! %s wins!\n", p2[i].name, p1[i].name);  
 			    break;
 			} 
-			int dodmg2 = PlayerAttackPhase(&p2[i], &p1[i], logfile); 
+			PlayerAttackPhase(&p2[i], &p1[i], logfile); 
 			if (p1[i].hp <= 0) {
                 turn++; 
                 user2->winball++;
