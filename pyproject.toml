@@ -1,6 +1,9 @@
+[tool.setuptools]
+packages = ["cbattle"] 
+
 [project]
 name = "CBattle"
-version = "0.1"
+version = "0.1" 
 
 description = "a mini battle system written in c for ballsdex(exprimental)"
 license = "MIT" 
