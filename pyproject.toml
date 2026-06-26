@@ -1,0 +1,16 @@
+[project]
+name = "CBattle"
+version = "0.1"
+
+description = "a mini battle system written in c for ballsdex(exprimental)"
+license = "MIT" 
+license-files = ["LICENSE"]
+authors = [
+    { name = "noobdog667", email = "subinbklp@gmail.com" },
+]
+readme = "README.md"
+
+dependencies = [
+    "ballsdex>=3.0.0", 
+    
+]
