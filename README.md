@@ -1,6 +1,6 @@
 # CBattle 
 
-# Thanks Hiboman for letting me use his battle code for this project 
+# Thanks Hiboman for letting me use Battle UX code from his battle system for this project. majority of python code is taken from his battle package
 
 
 it's a Battle system for ballsdex made in C Currently it's not recommended to use it on any production bots 
