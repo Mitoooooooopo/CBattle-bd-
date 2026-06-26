@@ -1,5 +1,8 @@
 # CBattle 
 
+# Thanks Hiboman for letting me use his battle code for this project 
+
+
 it's a Battle system for ballsdex made in C Currently it's not recommended to use it on any production bots 
 this is just a small prototype it's unpolished and have some edge cases 
 
