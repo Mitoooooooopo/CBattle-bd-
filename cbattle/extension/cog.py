@@ -1,6 +1,3 @@
-"""
-Simple battle system commands
-"""
 import logging
 from typing import List, Optional, Dict, TYPE_CHECKING
 from dataclasses import dataclass, field
@@ -18,12 +15,10 @@ from .battle_core import build_ctypes_player, run_fight_async
 if TYPE_CHECKING:
     from ballsdex.core.bot import BallsDexBot
 
-log = logging.getLogger("ballsdx.packages.battle")
-
+log = logging.getLogger("extra.cbattle.cbattle.extension")
 
 @dataclass
 class BattleSetup:
-    """Represents a battle being set up"""
     interaction: discord.Interaction
     author: discord.Member
     opponent: discord.Member
@@ -34,7 +29,7 @@ class BattleSetup:
 
 
 class BattleCog(commands.GroupCog, name="battle"):
-    """Battle system for your countryballs"""
+    """Battle system for countryballs"""
 
     def __init__(self, bot: "BallsDexBot"):
         self.bot = bot
@@ -49,7 +44,7 @@ class BattleCog(commands.GroupCog, name="battle"):
         return user in (setup.author, setup.opponent)
 
     def _create_setup_embed(self, setup: BattleSetup) -> discord.Embed:
-        """Create embed for battle setup phase"""
+        """Create embed for battle setup"""
         embed = discord.Embed(
             title="Battle Setup",
             description=(
@@ -147,7 +142,7 @@ class BattleCog(commands.GroupCog, name="battle"):
         ball: BallInstanceTransform
             The ball you want to add to your deck
         """
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
         
         setup = self._get_battle_setup(interaction)
         if not setup:
@@ -198,7 +193,7 @@ class BattleCog(commands.GroupCog, name="battle"):
             The ball you want to remove from your deck
         """
 
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
         
         setup = self._get_battle_setup(interaction)
         if not setup:
@@ -234,7 +229,6 @@ class BattleCog(commands.GroupCog, name="battle"):
 
 
 class BattleSetupView(discord.ui.View):
-    """View for battle setup phase: Ready / Cancel buttons -> ctypes Fight"""
 
     def __init__(self, cog: BattleCog, setup: BattleSetup):
         super().__init__(timeout=300)
@@ -244,7 +238,7 @@ class BattleSetupView(discord.ui.View):
     @discord.ui.button(label="Ready", style=discord.ButtonStyle.success, emoji="✅")
     async def ready_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Mark player as ready"""
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
         
         if not self.cog._is_user_in_setup(interaction.user, self.setup):
             await interaction.followup("You're not part of this battle!", ephemeral=True)
@@ -273,7 +267,7 @@ class BattleSetupView(discord.ui.View):
     @discord.ui.button(label="Cancel", style=discord.ButtonStyle.danger, emoji="❌")
     async def cancel_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Cancel / reject battle setup"""
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
         
         if not self.cog._is_user_in_setup(interaction.user, self.setup):
             await interaction.followup.send("You're not part of this battle!", ephemeral=True)
@@ -297,7 +291,7 @@ class BattleSetupView(discord.ui.View):
         p1 = build_ctypes_player(self.setup.author_balls, self.setup.author.display_name)
         p2 = build_ctypes_player(self.setup.opponent_balls, self.setup.opponent.display_name)
 
-        log = await run_fight_async(p1, p2)
+        logi = await run_fight_async(p1, p2)
         
         self.cog.battle_setups.pop(interaction.guild_id, None)
 
@@ -307,9 +301,9 @@ class BattleSetupView(discord.ui.View):
         try:
             await interaction.edit_original_response(
                 content="Fight Finished!",
-                attachments=[discord.File(log)],
+                attachments=[discord.File(logi)],
                 view=self,
             )
         finally:
-            log.unlink(missing_ok=True) # delete the file from your pc 
+            logi.unlink(missing_ok=True) # delete the file from your pc 
 

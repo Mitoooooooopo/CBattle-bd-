@@ -27,7 +27,6 @@ lib = ctypes.CDLL(str(LIB_PATH))
 
 
 class CBattleBall(ctypes.Structure):
-    """C-side struct mirroring the .so's expected layout for one ball."""
     _fields_ = [
         ("name", ctypes.c_char * 100),
         ("atk", ctypes.c_int),
@@ -41,7 +40,6 @@ class CBattleBall(ctypes.Structure):
 
 
 class Player(ctypes.Structure):
-    """C-side struct mirroring the .so's expected layout for one player."""
     _fields_ = [
         ("name", ctypes.c_char * 100),
         ("balls", CBattleBall * MAX_SIZE),
