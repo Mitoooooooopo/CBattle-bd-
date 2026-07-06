@@ -5,5 +5,5 @@ if TYPE_CHECKING:
  
  
 async def setup(bot: "BallsDexBot"):
-    from .cog import Battle
-    await bot.add_cog(Battle(bot))
+    from .cog import BattleCog
+    await bot.add_cog(BattleCog(bot))
