@@ -1,6 +1,4 @@
-# Thanks Hiboman for letting me use Battle UX code from his battle system for this project. majority of python code is taken from his battle package for temporarily use 
-
-
+ 
 
 # CBattle 
 it's a Battle system for ballsdex made in C Currently it's not recommended to use it on any production bots 
@@ -13,6 +11,22 @@ C side, C perfom the battle with that values then sends results into txt python 
 txt to discord 
 
 # How to install 
+assuming you know how to install basic package in Ballsdex 3xx
+
+On your config/extra.toml add 
+
+```
+[[ballsdex.packages]]
+path = "cbattle"
+enabled = true
+```
+restart your bot and if everything succeed you should see the battle commands 
+
+# Abilities 
+
+The Battle Engine support minimal abilities the only drawback is you have to know how to write basic C 
+
+
 
 
 
