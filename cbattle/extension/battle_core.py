@@ -18,6 +18,7 @@ from ballsdex.settings import settings
 if TYPE_CHECKING:
     from ballsdex.core.bot import BallsDexBot
 
+
 LIB_PATH = Path(__file__).parent / "battlev1.0.so"
 
 MAX_SIZE = 3
@@ -48,13 +49,9 @@ class Player(ctypes.Structure):
         ("AblityUsed", ctypes.c_int),
     ]
 
+# Code Below is written by one of my irl freind aswin
 
-# Fight()'s third argument is NOT an output buffer — it's a filename.
-# The C side opens this path itself (open_log) and fprintf's the whole
-# battle log into it, then returns void. We must pass a real path string,
-# not a pre-allocated ctypes buffer, or open_log gets garbage/empty bytes
-# as a "path", fails to open a file, and every subsequent fprintf(logfile, ...)
-# writes through a NULL FILE* -> segfault.
+
 lib.Fight.argtypes = [
     ctypes.POINTER(Player),
     ctypes.POINTER(Player),
@@ -68,18 +65,6 @@ def build_ctypes_player(balls: List[BallInstance], owner_name: str) -> Player:
     Convert a list of Django BallInstance objects into the ctypes Player
     struct expected by the C battle library.
 
-    Notes on the mapping (confirmed against the actual BallInstance model):
-      - ball.attack / ball.health are properties that already include the
-        instance's attack_bonus/health_bonus baked in as a percentage —
-        do NOT add the bonus again on top.
-      - The species name lives at ball.countryball.country, not ball.name.
-      - capacity_logic (the ability id) lives on ball.countryball (the
-        Ball/species model), not on the instance itself. It's stored as
-        a JSONField but holds a plain number — the ability id — so it's
-        cast straight to int for the ctypes struct.
-      - Shiny handling is intentionally skipped for now (always False);
-        to be wired up once the "which Special counts as shiny" question
-        is resolved.
     """
     if len(balls) > MAX_SIZE:
         raise ValueError(f"Cannot build a player with more than {MAX_SIZE} balls (got {len(balls)})")
@@ -106,18 +91,6 @@ def run_fight(player1: Player, player2: Player) -> str:
     """
     Call the C Fight() function and return the battle log text.
 
-    Fight() writes its entire log to the file at the path given as its
-    third argument (via internal fprintf calls) and returns nothing.
-    So we:
-      1. create a unique temp file path
-      2. pass that path (as bytes) to Fight()
-      3. read the file back once Fight() returns
-      4. clean up the temp file
-
-    NOTE: this is a blocking, synchronous call (~1s observed, plus file
-    I/O). Do not call this directly from an async Discord callback — use
-    run_fight_async instead, which offloads this to a thread so the bot's
-    event loop doesn't freeze while the fight runs.
     """
     tmp_dir = Path(tempfile.gettempdir())
     log_path = tmp_dir / f"battle_{uuid.uuid4().hex}.log"
@@ -140,7 +113,7 @@ async def run_fight_async(player1: Player, player2: Player) -> str:
     """
     Async-safe wrapper around run_fight(). Runs the blocking ctypes call
     (and file I/O) in the default thread pool executor so the bot's event
-    loop keeps handling other interactions while the fight computes.
+    loop keeps handling other interactions while the fight runs.
     """
     loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, run_fight, player1, player2)
