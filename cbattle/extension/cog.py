@@ -15,7 +15,7 @@ from .battle_core import build_ctypes_player, run_fight_async
 if TYPE_CHECKING:
     from ballsdex.core.bot import BallsDexBot
 
-log = logging.getLogger("extra.cbattle.cbattle.extension")
+log = logging.getLogger(__name__)
 
 @dataclass
 class BattleSetup:
