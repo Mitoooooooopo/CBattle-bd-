@@ -47,9 +47,6 @@ class Player(ctypes.Structure):
         ("AblityUsed", ctypes.c_int),
     ]
 
-# Code Below is written by one of my irl freind aswin
-
-
 lib.Fight.argtypes = [
     ctypes.POINTER(Player),
     ctypes.POINTER(Player),
@@ -57,11 +54,12 @@ lib.Fight.argtypes = [
 ]
 lib.Fight.restype = None
 
+ # Code Below is written by one of my irl freind aswin
 
 def build_ctypes_player(balls: List[BallInstance], owner_name: str) -> Player:
     """
-    Convert a list of Django BallInstance objects into the ctypes Player
-    struct expected by the C battle library.
+    Convert a list of BallInstance objects into the ctypes Player
+    struct expected by the C code.
 
     """
     if len(balls) > MAX_SIZE:
@@ -78,7 +76,7 @@ def build_ctypes_player(balls: List[BallInstance], owner_name: str) -> Player:
         p.balls[i].hp = ball.health
         p.balls[i].id = ball.pk
         p.balls[i].ablityid = int(species.capacity_logic)
-        p.balls[i].Is_Shiny = False  # placeholder: shiny logic deferred
+        p.balls[i].Is_Shiny = False  
         p.balls[i].stunned = False
         p.balls[i].canattack = True
 

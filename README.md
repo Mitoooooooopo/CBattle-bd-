@@ -17,6 +17,7 @@ On your config/extra.toml add
 
 ```
 [[ballsdex.packages]]
+location = "https://github.com/Mitoooooooopo/CBattle-bd-.git#main"
 path = "cbattle"
 enabled = true
 ```

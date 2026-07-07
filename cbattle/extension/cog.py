@@ -229,7 +229,6 @@ class BattleCog(commands.GroupCog, name="battle"):
 
 
 class BattleSetupView(discord.ui.View):
-
     def __init__(self, cog: BattleCog, setup: BattleSetup):
         super().__init__(timeout=300)
         self.cog = cog
