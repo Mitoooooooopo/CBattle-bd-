@@ -84,9 +84,11 @@ next after writing your ability is define it
 
 ```
 Ablity ds = {
-	.name = dubai_style
-	.discription = "Uae dodged all attacks in dubai style"  
+	.name = dubai_style,
+	.discription = "Uae dodged all attacks in dubai style",
 	// The discription is what shown when the ability activates
+	.bs = ON_TURN,
+	// when the ability have to trigger
 	.activate = Dubai_style 
 	// pointes to your ablity function
 }
@@ -139,16 +141,33 @@ now your ability is succesfully registered Next We have to connect Ball With the
 
 start your bots admin panel edit the capacity_json of the ball whom you want to give the ability
 
-in capacity_json remove the {} bracket and add just the ability id 
+in capacity_json remove the {} bracket and just add the ability id 
 
 here i want uae to have the ability ds so i edit uae's capacity_json from {} to 3 
 Its recommended to put -1 if a ball dond have ability defined
+
+after this you have to compile the modified code to a .so please see below
 
 now try the battle and see if your ability works
 
 Hope You Understand if you have any trouble getting it work or understanding please dm me on the discord
 
+# Compiling the code to shared library
 
+If you have made any changes in the c code or added a ability you have to compile it for use
+you need to have gcc installed 
+
+```
+gcc -shared -fPIC main.c ablities.c -o battlev1.0.so
+```
+
+this command creates a .so file called battlev1.0.so 
+
+replace the existing .so in extension folder with your compiled one
+
+thats it your modified code or new ability  will take effect
+
+its necessary to do this every time you make a change in c code or add a new ability
 
 ## the project is in early stage and may have problems feel free to report or contribute
 
