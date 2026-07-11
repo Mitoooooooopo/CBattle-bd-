@@ -31,9 +31,9 @@ if any updates come to the core battle engine you can simply just copy the updat
 The Battle Engine support minimal abilities the only drawback is you have to know how to write basic C 
 
 
-## adding new abliity
+## adding new ability
 
-To Add a new ablity you just have to open ablities.c create the ablity function a instamce and add it to ablitydatabase defined
+To Add a new ablity you just have to open ablities.c create the ablity function a instance and add it to ablitydatabase defined
 
 here
 
