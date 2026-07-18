@@ -4,7 +4,20 @@
 #include <stdbool.h>
 #include <stdio.h> 
 #include "butils.h"
-#include "ablities.h"
+#include "ablities.h" 
+
+BattleBall b1[MAX_SIZE] = {
+	    {"uae", 2000, 632, 1, 1, true, false, true},
+	    {"china", 5000, 7000, 2, -1, false, false, true},
+	    {"india", 5000, 6000, 3, -1, false, false, true},
+
+};
+
+BattleBall b2[MAX_SIZE] = {
+	    {"russia", 1000, 4000, 1, 2, false, false, true},
+	    {"usa", 7000, 8000, 2, -1, false, false, true},
+	    {"japan", 1000, 1000, 3, -1, false, false, true},
+};
 
 FILE *open_log(const char *filename) {
     return fopen(filename, "w");
@@ -25,6 +38,16 @@ Player user2 = {
 	.winball = 0,
 	.AblityUsed = 0
 }; 
+
+
+void storeball(void) {
+    for(int i = 0; i < MAX_SIZE; i++) {
+           user1.balls[i] = b1[i];
+           user2.balls[i] = b2[i];
+
+    }
+
+}
 
 void staterest(BattleState *state) {
     state->ballstate1->Dead_by_ablity = false;
@@ -63,7 +86,6 @@ int dmgc(BattleBall *attacker, bool *critical) {
     if(attacker->Is_Shiny == true) {
     	damage = damage * 2;
     }
-	//int damage = attacker->atk;
 	int atk_decider =  75 + (rand() % 16); 
 	int final_calc = damage * atk_decider / 100; 
 	return final_calc;
@@ -178,10 +200,11 @@ void Fight(Player *user1, Player *user2, const char *Filename) {
 }
 
 int main() {
-    //srand(time(NULL));
-	//Player *p = &user1;
-	//Player *o = &user2; 
-	//char *test = "hi.txt";
-	//Fight(p, o, test); 
+    srand(time(NULL));
+    storeball();
+	Player *p = &user1;
+	Player *o = &user2; 
+	char *test = "hi.txt";
+	Fight(p, o, test); 
 	
 }

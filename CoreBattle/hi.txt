@@ -1,0 +1,22 @@
+Turn: 1
+uae blocked all incoming attacks in dubai style
+Shiny Bonus Applied
+uae did 3040 damage to russia !
+ball was unable do any dmg to attacker
+Turn: 2
+uae blocked all incoming attacks in dubai style
+Shiny Bonus Applied
+uae did 3040 damage to russia !
+Russia dead leaving a nuclear bomb -1000 dmg
+russia ball took opponent with him!
+uae fainted! russia fainted!
+Turn: 3
+china did 4250 damage to usa !
+usa did 5810 damage to china !
+Turn: 4
+china did 4300 damage to usa !
+usa fainted! china wins!
+Turn: 5
+india did 3850 damage to japan !
+japan fainted! india wins!
+Ai1 won
