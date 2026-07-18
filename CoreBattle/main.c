@@ -10,22 +10,6 @@ FILE *open_log(const char *filename) {
     return fopen(filename, "w");
 }
 
-
-Player user1 = {
-	.name = "Ai1",
-	.balls = {0},
-	.winball = 0,
-	.AblityUsed = 0
-};
-
-
-Player user2 = {
-	.name = "Ai2",
-	.balls = {0},
-	.winball = 0,
-	.AblityUsed = 0
-}; 
-
 void staterest(BattleState *state) {
     state->ballstate1->Dead_by_ablity = false;
     state->ballstate2->Dead_by_ablity = false;
@@ -63,7 +47,7 @@ int dmgc(BattleBall *attacker, bool *critical) {
     if(attacker->Is_Shiny == true) {
     	damage = damage * 2;
     }
-	//int damage = attacker->atk;
+	
 	int atk_decider =  75 + (rand() % 16); 
 	int final_calc = damage * atk_decider / 100; 
 	return final_calc;
@@ -178,10 +162,5 @@ void Fight(Player *user1, Player *user2, const char *Filename) {
 }
 
 int main() {
-    //srand(time(NULL));
-	//Player *p = &user1;
-	//Player *o = &user2; 
-	//char *test = "hi.txt";
-	//Fight(p, o, test); 
-	
+  //main is not needed unless testing	
 }

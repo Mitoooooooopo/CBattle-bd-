@@ -43,8 +43,6 @@ typedef struct BallState{
     BattleBall *ball;
     BattleEns events; 
     bool Dead_by_ablity;
-    //int Total_DMG_Done;
-    //int Total_DMG_recivied;
 } BallState;
 
 typedef struct BattleState{
