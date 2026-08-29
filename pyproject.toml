@@ -13,7 +13,4 @@ authors = [
 ]
 readme = "README.md"
 
-dependencies = [
-    "ballsdex>=3.0.0", 
-    
-]
+dependencies = []
